@@ -65,3 +65,65 @@ Bảo mật mùa xuân sử dụng các bộ lọc servlet Java để bắt đ�
 ## Kiến trúc Spring security
 
   ![image](https://github.com/thangdtph27626/spring-security/assets/109157942/a4c08bd1-d559-47b3-bacc-2f622f4728fe)
+
+## Demo spring security
+
+1. Cài đặt
+Đầu tiên, chúng ta cài các thư viện cần thiết bao gồm: Spring Security và Spring Web và Lombok
+
+![image](https://github.com/thangdtph27626/spring-security/assets/109157942/9700276e-184f-43ac-b4cd-a6b077157c6a)
+
+Tiếp theo, tạo model Customer:
+
+```
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
+public class Customer {
+    private String id;
+    private String name;
+    private String phoneNumber;
+    private String email;
+}
+```
+
+Vì bài này tập trung vào Security nên mình sẽ fake data và truyền thẳng vào controller như sau:
+
+```
+@RestController
+public class CustomerController {
+    final private List<Customer> customers = List.of(
+            Customer.builder().id("001").name("Customer 1").email("c1@gmail.com").build(),
+            Customer.builder().id("002").name("Customer 2").email("c2@gmail.com").build()
+    );
+    
+    @GetMapping("/hello")
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok("hello is exception");
+    }
+
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<Customer> getCustomerList(@PathVariable("id") String id) {
+        List<Customer> customers = this.customers.stream().filter(customer -> customer.getId().equals(id)).toList();
+        return ResponseEntity.ok(customers.get(0));
+    }
+}
+```
+Như mọi người đã biết thì đôi khi chúng ta cũng sẽ có một số endpoint không cần authentication, cho nên ở đây mình sẽ thêm vào 1 function tên hello() không cần authen.
+
+Ngoài ra mình cũng sẽ hard code bằng cách khai báo username và password trong application.properties:
+
+```
+spring.security.user.name=hach
+spring.security.user.password=hacheery
+```
+
+Khi khởi động chương trình, trỏ vào đường dẫn http://localhost:8080/hello nó sẽ redirect vào trang login trước khi vào nội dung của trang web:
+
+![image](https://github.com/thangdtph27626/spring-security/assets/109157942/ccec2d2e-d022-4a8a-b8c9-f0e80cb0e2b7)
+Sau khi login thành công sẽ redirect về trang hello:
+
+![image](https://github.com/thangdtph27626/spring-security/assets/109157942/6e84c33a-848c-4902-b533-99920eb152ae)
+
