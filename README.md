@@ -62,6 +62,18 @@ Với xác thực đơn giản, chúng ta không thể hạn chế người dùn
 ### d, Servlet Filters
 Bảo mật mùa xuân sử dụng các bộ lọc servlet Java để bắt đầu kiểm tra bảo mật cho ứng dụng web của chúng ta.
 
+## Ưu điểm Spring security
+Dưới đây là một số ưu điểm quan trọng của Spring Security:
+
+- Tích hợp API Servlet.
+- Hỗ trợ mở rộng cho cả Xác thực và Ủy quyền.
+- Bảo vệ chống lại các cuộc tấn công như cố định phiên, kích hoạt nhấp chuột.
+- Tích hợp Spring MVC.
+- Khả năng bảo mật ứng dụng chống lại các cuộc tấn công vũ phu.
+- Tính di động.
+- Bảo vệ chống lại các cuộc tấn công CSRF.
+- Hỗ trợ cấu hình Java
+
 ## Kiến trúc Spring security
 
   ![image](https://github.com/thangdtph27626/spring-security/assets/109157942/a4c08bd1-d559-47b3-bacc-2f622f4728fe)
